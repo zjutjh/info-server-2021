@@ -32,12 +32,12 @@ func main() {
 
 }
 func initDB() *gorm.DB {
-	db, err := gorm.Open(mysql.Open("root:passwd@/stu_info"), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open("root:passwd@/info2021?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
 	if err != nil {
 		log.Println(err)
 		return nil
 	}
-	if err:= db.AutoMigrate(&model.Stu{}); err != nil {
+	if err:= db.AutoMigrate(&model.StuInfo{}); err != nil {
 		log.Println(err)
 	}
 	return db
