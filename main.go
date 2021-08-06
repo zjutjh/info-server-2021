@@ -16,7 +16,6 @@ func main() {
 	// parse cmd args
 	var options model.Options
 	if _, err := flags.Parse(&options); err != nil {
-		fmt.Print(err)
 		return
 	}
 
