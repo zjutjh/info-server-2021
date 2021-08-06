@@ -6,6 +6,7 @@ type Info struct {
 	Name    string `json:"name"`
 	Faculty string `json:"faculty"`
 	Class   string `json:"class"`
+	Campus  string `json:"campus"`
 }
 
 //Dorm dormitory, response struct of dorm API

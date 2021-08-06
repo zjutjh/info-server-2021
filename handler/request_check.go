@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"info/model"
+	"net/url"
 )
 
 //BasicCheck check if 'GET' query valid
@@ -13,8 +14,6 @@ func BasicCheck(c *gin.Context) (*model.GetInfo, error) {
 	if err != nil || query.Name == "" || query.ID == "" {
 		return nil, errors.New("InvalidRequestQuery")
 	}
-	if  len(query.ID) != 18 {
-		return nil, errors.New("InvalidIDNumber")
-	}
+	query.Name, _ = url.QueryUnescape(query.Name)
 	return &query, nil
 }

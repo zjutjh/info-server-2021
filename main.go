@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jessevdk/go-flags"
 	"github.com/spf13/viper"
@@ -16,6 +17,7 @@ func main() {
 		panic(err)
 	}
 	// read config from file(yaml）
+
 	if options.ConfigPath != "" {
 		viper.SetConfigFile(options.ConfigPath)
 	} else {
@@ -31,7 +33,11 @@ func main() {
 			panic(err)
 		}
 	}
-
+	if options.LoadData != "" {
+		handler.ReaInfo(options.LoadData, options.Passwd)
+		fmt.Println("Load finished")
+		return
+	}
 	// initial database connection
 	handler.InitDB()
 
