@@ -6,23 +6,22 @@ import (
 	"github.com/spf13/viper"
 	"info/controller"
 	"info/handler"
+	"info/model"
 )
-
-var Options struct {
-	ConfigPath string `short:"c" long:"config" description:"[PATH] Set config path"`
-}
 
 func main() {
 	// parse cmd args
-	if _, err := flags.Parse(&Options); err != nil {
+	var options model.Options
+	if _, err := flags.Parse(&options); err != nil {
 		panic(err)
 	}
-	if Options.ConfigPath != "" {
-		viper.SetConfigFile(Options.ConfigPath)
+	// read config from file(yaml）
+	if options.ConfigPath != "" {
+		viper.SetConfigFile(options.ConfigPath)
 	} else {
 		viper.SetConfigName("config")
 		viper.SetConfigType("yaml")
-		viper.AddConfigPath("/etc/info2021")
+		viper.AddConfigPath("/etc/info")
 		viper.AddConfigPath(".")
 	}
 	if err := viper.ReadInConfig(); err != nil {
@@ -40,8 +39,8 @@ func main() {
 	router := gin.Default()
 	v1 := router.Group("/api/v1")
 	{
-		v1.GET("/StuID", controller.GetID)
-		v1.GET("/Info", controller.GetMoreInfo)
+		v1.GET("/info", controller.GetInfo)
+		v1.GET("/dorm", controller.GetDorm)
 	}
 
 	// start server
@@ -49,5 +48,3 @@ func main() {
 		panic(err)
 	}
 }
-
-
