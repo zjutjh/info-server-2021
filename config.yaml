@@ -1,7 +1,10 @@
 # example config file
-username: root
-password: passwd
-database: info2021
+# server config >>>
+server-port: ":8080"
+# database config >>>
+username: "root"
+password: "passwd"
+database: "info2021"
 # "hostname: 127.0.0.1" & "port: 3306" can be omitted
 # hostname: 127.0.0.1
 # port: 3306
