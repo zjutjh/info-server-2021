@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jessevdk/go-flags"
@@ -8,6 +9,11 @@ import (
 	"info/controller"
 	"info/handler"
 	"info/model"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"time"
 )
 
 func main() {
@@ -51,21 +57,44 @@ func main() {
 	router := gin.Default()
 	v1 := router.Group("/api/v1")
 	{
-		v1.GET("/info", controller.GetInfo)
-		v1.GET("/dorm", controller.GetDorm)
+		v1.POST("/info", controller.GetInfo)
+		v1.POST("/dorm", controller.GetDorm)
 	}
 
 	// start server
-	var err error
+	var srv *http.Server
 	if port := viper.GetString("server-port"); port != "" {
-		err = router.Run(port)
-		fmt.Println("Info server started at " + port)
+		log.Println("Info server started at " + port)
+		srv = &http.Server{
+			Addr:    port,
+			Handler: router,
+		}
 	} else {
-		err = router.Run(":8080")
-		fmt.Println("Info server started at :8080")
+		log.Println("Info server started at :8080")
+		srv = &http.Server{
+			Addr:    ":8080",
+			Handler: router,
+		}
 	}
-	if err != nil {
-		fmt.Println(err)
-		return
+
+	go func() {
+		// service connections
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+
+	// Wait for interrupt signal to gracefully shutdown the server with
+	// a timeout of 5 seconds.
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+	log.Println("Shutdown Server ...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal("Server Shutdown:", err)
 	}
+	log.Println("Server exiting")
 }

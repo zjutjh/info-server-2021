@@ -27,5 +27,8 @@ func QueryDorm(form *model.GetInfo) (*model.Dorm, error) {
 	if result.Error != nil {
 		return nil, result.Error
 	}
+	if request.House == "" {
+		return nil,NotAvailable
+	}
 	return &request, nil
 }

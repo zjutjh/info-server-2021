@@ -44,6 +44,9 @@ func GetDorm(context *gin.Context) {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			context.JSON(http.StatusNotFound, gin.H{"status": "fail", "msg": "RecordNotFound"})
 			return
+		} else if errors.Is(err, handler.NotAvailable) {
+			context.JSON(http.StatusServiceUnavailable, gin.H{"status": "fail", "msg": "NotAvailable"})
+			return
 		} else {
 			context.JSON(http.StatusInternalServerError, gin.H{"status": "fail", "msg": "InternalServerError"})
 			return
