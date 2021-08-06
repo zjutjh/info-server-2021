@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jessevdk/go-flags"
 	"github.com/spf13/viper"
-	"info/controller"
-	"info/handler"
-	"info/model"
+	"github.com/zjutjh/info-backend/controller"
+	"github.com/zjutjh/info-backend/handler"
+	"github.com/zjutjh/info-backend/model"
 	"log"
 	"net/http"
 	"os"
@@ -59,6 +59,12 @@ func main() {
 	{
 		v1.POST("/info", controller.GetInfo)
 		v1.POST("/dorm", controller.GetDorm)
+		v1.OPTIONS("/info", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{"status": "ok"})
+		})
+		v1.OPTIONS("/dorm", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{"status": "ok"})
+		})
 	}
 
 	// start server
@@ -84,7 +90,7 @@ func main() {
 		}
 	}()
 
-	// Wait for interrupt signal to gracefully shutdown the server with
+	// Wait for interrupt signal to gracefully shut down the server with
 	// a timeout of 5 seconds.
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)

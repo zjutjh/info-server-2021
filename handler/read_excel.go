@@ -3,8 +3,8 @@ package handler
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	"info/data"
-	"info/model"
+	"github.com/zjutjh/info-backend/data"
+	"github.com/zjutjh/info-backend/model"
 )
 
 func ReaInfo(path string, passwd string) {

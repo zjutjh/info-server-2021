@@ -1,4 +1,4 @@
-module info
+module github.com/zjutjh/info-backend
 
 go 1.16
 

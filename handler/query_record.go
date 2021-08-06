@@ -2,8 +2,8 @@ package handler
 
 import (
 	"errors"
-	"info/data"
-	"info/model"
+	"github.com/zjutjh/info-backend/data"
+	"github.com/zjutjh/info-backend/model"
 )
 
 var NotAvailable = errors.New("no available data yet")

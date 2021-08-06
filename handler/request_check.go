@@ -3,17 +3,15 @@ package handler
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
-	"info/model"
-	"net/url"
+	"github.com/zjutjh/info-backend/model"
 )
 
-//BasicCheck check if 'GET' query valid
+//BasicCheck check if 'POST' query valid
 func BasicCheck(c *gin.Context) (*model.GetInfo, error) {
 	var form model.GetInfo
-	err := c.ShouldBind(&form)
+	err := c.ShouldBindJSON(&form)
 	if err != nil || form.Name == "" || form.ID == "" {
 		return nil, errors.New("InvalidRequestQuery")
 	}
-	form.Name, _ = url.QueryUnescape(form.Name)
 	return &form, nil
 }

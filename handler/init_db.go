@@ -5,8 +5,8 @@ import (
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"info/data"
-	"info/model"
+	"github.com/zjutjh/info-backend/data"
+	"github.com/zjutjh/info-backend/model"
 )
 
 func InitDB() {
