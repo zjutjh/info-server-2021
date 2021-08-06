@@ -3,10 +3,10 @@ package handler
 import (
 	"fmt"
 	"github.com/spf13/viper"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"github.com/zjutjh/info-backend/data"
 	"github.com/zjutjh/info-backend/model"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func InitDB() {
