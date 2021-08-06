@@ -37,15 +37,16 @@ func main() {
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			fmt.Println("Config file 'config.yml' not found")
-			return
+			os.Exit(2)
 		} else {
 			fmt.Println(err)
-			return
+			os.Exit(5)
 		}
 	}
 
 	// load data from excel file
 	if options.LoadData != "" {
+		fmt.Println("Start read & load...")
 		handler.ReaInfo(options.LoadData, options.Passwd)
 		fmt.Println("Load finished")
 		return
@@ -70,13 +71,13 @@ func main() {
 	// start server
 	var srv *http.Server
 	if port := viper.GetString("server-port"); port != "" {
-		log.Println("Info server started at " + port)
+		log.Println("Info server starting at " + port)
 		srv = &http.Server{
 			Addr:    port,
 			Handler: router,
 		}
 	} else {
-		log.Println("Info server started at :8080")
+		log.Println("Info server starting at :8080")
 		srv = &http.Server{
 			Addr:    ":8080",
 			Handler: router,

@@ -33,7 +33,7 @@ func QueryDorm(form *model.GetInfo) (*model.Dorm, error) {
 	}
 	var friends model.Friends
 	result = data.DB.Model(&model.Student{}).Where(&model.Student{Campus: request.Campus, House: request.House,
-		Room: request.Room}).Order("bed").Find(&friends)
+		Room: request.Room}).Not("bed = ?", request.Bed).Order("bed").Find(&friends)
 	if result.Error != nil && errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return &request, nil
 	} else if result.Error != nil {
