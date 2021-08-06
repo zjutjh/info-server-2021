@@ -17,11 +17,13 @@ func ReaInfo(path string, passwd string) {
 		f, err = excelize.OpenFile(path)
 	}
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	rows, err := f.GetRows("Sheet1")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	for i, row := range rows {
 		if i > 0 {

@@ -11,10 +11,13 @@ import (
 )
 
 func main() {
+	// set release mode
+	gin.SetMode(gin.ReleaseMode)
 	// parse cmd args
 	var options model.Options
 	if _, err := flags.Parse(&options); err != nil {
-		panic(err)
+		fmt.Print(err)
+		return
 	}
 
 	// read config from file(yaml）
@@ -28,9 +31,11 @@ func main() {
 	}
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			panic("Config file 'config.yml' not found")
+			fmt.Println("Config file 'config.yml' not found")
+			return
 		} else {
-			panic(err)
+			fmt.Println(err)
+			return
 		}
 	}
 
@@ -55,10 +60,13 @@ func main() {
 	var err error
 	if port := viper.GetString("server-port"); port != "" {
 		err = router.Run(port)
+		fmt.Println("Info server started at " + port)
 	} else {
 		err = router.Run(":8080")
+		fmt.Println("Info server started at :8080")
 	}
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 }

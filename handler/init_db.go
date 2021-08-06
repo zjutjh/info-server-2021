@@ -16,7 +16,7 @@ func InitDB() {
 	hostname := viper.GetString("hostname")
 	port := viper.GetString("port")
 	if user == "" || passwd == "" || database == "" {
-		panic("Invalid config")
+		fmt.Println("Invalid database config")
 	}
 	var dsn string
 	if hostname == "" || port == "" {
@@ -27,9 +27,9 @@ func InitDB() {
 	var err error
 	data.DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	if err := data.DB.AutoMigrate(&model.Student{}); err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }
