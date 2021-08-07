@@ -30,24 +30,22 @@
 
    或者使用`-c` `--config` 参数指定配置文件
 
-   ```
-   # config.yaml
-   
+   ```yaml
    # example config file
    # server config >>>
    server-port: ":8080"
    # database config >>>
-   username: "root"
-   password: "passwd"
-   database: "info2021"
-   # "hostname: 127.0.0.1" & "port: 3306" can be omitted
-   # hostname: 127.0.0.1
-   # port: 3306
+   db-username: "root"
+   db-password: "passwd"
+   db-database: "info_test"
+   # "db-hostname: 127.0.0.1" & "port: 3306" can be omitted
+   # db-hostname: 127.0.0.1
+   # db-port: 3306
    ```
 
 2. 从Excel载入数据到MySQL
 
-   注：Excel数据表格式很可能不通用。
+   > 注：Excel数据表格式很可能不通用。（导入已写的尽量智能，但是出了问题还是可能需要修改源码）
 
    ```
    ./info-backend -l [excel文件路径]
@@ -58,6 +56,8 @@
    ```
    ./info-backend -l [excel文件路径] -p [密码]
    ```
+
+   > 如果已导入基本数据，然后再导入寝室数据(更新数据库)，可以后面再加个`-u`，这样就不会执行数据库插入操作，避免打印记录重复的错误。
 
 3. 启动服务端
 
@@ -148,12 +148,14 @@
 
 ```
 Usage:
-  info [OPTIONS]
+  info-backend [OPTIONS]
 
 Application Options:
   -c, --config=  [PATH] Config file path
   -l, --load=    [PATH] Read & load data from excel
   -p, --passwd=  [PASS] Password of excel file
+  -s, --sheet=   [Sheet] Read sheet
+  -u, --update   Update database by dormitory info
   -v, --version  Show Info server version & quit
 
 Help Options:
