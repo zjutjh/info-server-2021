@@ -42,7 +42,7 @@ func GetDorm(context *gin.Context) {
 	result, err := handler.QueryDorm(form)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			context.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "msg": "RecordNotFound"})
+			context.JSON(http.StatusOK, gin.H{"code": http.StatusNotFound, "msg": "RecordNotFound"})
 			return
 		} else if errors.Is(err, handler.NotAvailable) {
 			context.JSON(http.StatusOK, gin.H{"code": http.StatusServiceUnavailable, "msg": "NotAvailable"})

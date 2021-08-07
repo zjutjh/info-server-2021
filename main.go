@@ -16,6 +16,10 @@ import (
 	"time"
 )
 
+var (
+	version = "v1.0.0"
+)
+
 func main() {
 	// set release mode
 	gin.SetMode(gin.ReleaseMode)
@@ -24,7 +28,11 @@ func main() {
 	if _, err := flags.Parse(&options); err != nil {
 		return
 	}
-
+	// show version
+	if options.Version {
+		fmt.Println("Info server version " + version)
+		return
+	}
 	// read config from file(yaml）
 	if options.ConfigPath != "" {
 		viper.SetConfigFile(options.ConfigPath)
@@ -71,13 +79,13 @@ func main() {
 	// start server
 	var srv *http.Server
 	if port := viper.GetString("server-port"); port != "" {
-		log.Println("Info server starting at " + port)
+		log.Println("Info server" + version + " starting at " + port)
 		srv = &http.Server{
 			Addr:    port,
 			Handler: router,
 		}
 	} else {
-		log.Println("Info server starting at :8080")
+		log.Println("Info server" + version + " starting at :8080")
 		srv = &http.Server{
 			Addr:    ":8080",
 			Handler: router,

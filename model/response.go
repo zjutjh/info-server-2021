@@ -22,6 +22,7 @@ type Dorm struct {
 type Friends []Friend
 
 type Friend struct {
-	Name string `json:"name"`
-	Bed  int8   `json:"bed"`
+	Name  string `json:"name"`
+	Class string `json:"class"`
+	Bed   int8   `json:"bed"`
 }
