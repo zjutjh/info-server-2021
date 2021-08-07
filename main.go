@@ -16,8 +16,8 @@ import (
 	"time"
 )
 
-var (
-	version = "v1.0.0"
+const (
+	VERSION = "v1.0.0"
 )
 
 func main() {
@@ -28,9 +28,9 @@ func main() {
 	if _, err := flags.Parse(&options); err != nil {
 		return
 	}
-	// show version
+	// show VERSION
 	if options.Version {
-		fmt.Println("Info server version " + version)
+		fmt.Println("Info Server version " + VERSION)
 		return
 	}
 	// read config from file(yaml）
@@ -79,13 +79,13 @@ func main() {
 	// start server
 	var srv *http.Server
 	if port := viper.GetString("server-port"); port != "" {
-		log.Println("Info server" + version + " starting at " + port)
+		log.Println("Info Server " + VERSION + " starting at " + port)
 		srv = &http.Server{
 			Addr:    port,
 			Handler: router,
 		}
 	} else {
-		log.Println("Info server" + version + " starting at :8080")
+		log.Println("Info Server " + VERSION + " starting at :8080")
 		srv = &http.Server{
 			Addr:    ":8080",
 			Handler: router,
