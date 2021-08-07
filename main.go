@@ -55,7 +55,7 @@ func main() {
 	// load data from excel file
 	if options.LoadData != "" {
 		fmt.Println("Start read & load...")
-		handler.ReaInfo(options.LoadData, options.Passwd)
+		handler.ReadInfo(options.LoadData, options.Passwd, options.Sheet, options.Update)
 		fmt.Println("Load finished")
 		return
 	}

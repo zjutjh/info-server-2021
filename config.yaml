@@ -2,9 +2,9 @@
 # server config >>>
 server-port: ":8080"
 # database config >>>
-username: "root"
-password: "passwd"
-database: "info2021"
-# "hostname: 127.0.0.1" & "port: 3306" can be omitted
-# hostname: 127.0.0.1
-# port: 3306
+db-username: "root"
+db-password: "passwd"
+db-database: "info_test"
+# "db-hostname: 127.0.0.1" & "port: 3306" can be omitted
+# db-hostname: 127.0.0.1
+# db-port: 3306

@@ -11,11 +11,11 @@ import (
 )
 
 func InitDB() {
-	user := viper.GetString("username")
-	passwd := viper.GetString("password")
-	database := viper.GetString("database")
-	hostname := viper.GetString("hostname")
-	port := viper.GetString("port")
+	user := viper.GetString("db-username")
+	passwd := viper.GetString("db-password")
+	database := viper.GetString("db-database")
+	hostname := viper.GetString("db-hostname")
+	port := viper.GetString("db-port")
 	if user == "" || passwd == "" || database == "" {
 		fmt.Println("Invalid database config")
 		os.Exit(255)
