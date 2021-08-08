@@ -1,6 +1,8 @@
 # Info-backend
 
-新生信息查询后端服务器
+ZJUT新生信息查询后端
+
+[![Go](https://github.com/zjutjh/info-backend/actions/workflows/go.yml/badge.svg)](https://github.com/zjutjh/info-backend/actions/workflows/go.yml)![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zjutjh/info-backend)![GitHub](https://img.shields.io/github/license/zjutjh/info-backend)
 
 ## 如何编译
 
