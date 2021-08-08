@@ -2,25 +2,25 @@
 
 ZJUT新生信息查询后端
 
-[![Go](https://github.com/zjutjh/info-backend/actions/workflows/go.yml/badge.svg)](https://github.com/zjutjh/info-backend/actions/workflows/go.yml)![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zjutjh/info-backend)![GitHub](https://img.shields.io/github/license/zjutjh/info-backend)
+[![Go](https://github.com/zjutjh/info-backend/actions/workflows/go.yml/badge.svg)](https://github.com/zjutjh/info-backend/actions/workflows/go.yml)[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/releases)[![GitHub](https://img.shields.io/github/license/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/blob/main/LICENSE)
 
 ## 如何编译
 
 1. Clone 仓库到本地
 
-   ```
+   ```shell
    git clone https://github.com/zjutjh/info-backend
    ```
 
 2. 更改工作目录
 
-   ```
+   ```shell
    cd info-backend
    ```
 
 3. 编译
 
-   ```
+   ```shell
    go build
    ```
 
@@ -47,7 +47,7 @@ ZJUT新生信息查询后端
 
 2. 从Excel载入数据到MySQL
 
-   > 注：Excel数据表格式很可能不通用。（导入已写的尽量智能，但是出了问题还是可能需要修改源码）
+   > 注：Excel数据表格式很可能不通用。（导入已写的尽量智能，但是仍然不能保证适配每一年学校提供的数据，出了问题可能还是需要手动修改一下源码`read_excel.go`）
 
    ```
    ./info-backend -l [excel文件路径]
@@ -104,25 +104,21 @@ ZJUT新生信息查询后端
    Host: 127.0.0.1:8080
    Connection: close
    User-Agent: Paw/3.2.2 (Macintosh; OS X/11.4.0) GCDHTTPRequest
-   Content-Length: 49
+   Content-Length: 38
    
-   {"stu_name":"info","stu_id":"330304200001010001"}
+   {"stu_name":"jxh01","stu_id":"210001"}
    ```
 
    ``` http
    HTTP/1.1 200 OK
-   Server: Tengine
-   Date: Sat, 07 Aug 2021 03:35:39 GMT
    Content-Type: application/json; charset=utf-8
-   Content-Length: 132
+   Date: Sun, 08 Aug 2021 04:09:15 GMT
+   Content-Length: 222
    Connection: close
-   Expires: Sat, 07 Aug 2021 15:35:39 GMT
-   Cache-Control: max-age=43200
-   Cache-Control: no-cache
    
-   {"code":200,"data":{"uid":"20210101","name":"精小弘","faculty":"精弘学院","class":"番茄一班","campus":"莫干山校区"}
+   {"code":"200","data":{"name":"jxh01","campus":"朝晖","house":"#7","room":"101","bed":1,"friends":[{"name":"jxh02","class":"CS02","bed":2},{"name":"jxh03","class":"CS03","bed":3},{"name":"jxh04","class":"CS04","bed":4}]}}
    ```
-
+   
 3. 异常情况 （例）
 
    ```http
@@ -171,23 +167,24 @@ Help Options:
 ├── README.md
 ├── config.yaml
 ├── controller
-│   └── get_stu_info.go
+│   └── get_stu_info.go //路由绑定的控制器
 ├── data
-│   └── data.go
+│   └── data.go //数据库全局变量
 ├── go.mod
 ├── go.sum
 ├── handler
-│   ├── init_db.go
-│   ├── query_record.go
-│   ├── read_excel.go
-│   └── request_check.go
-├── main.go
+│   ├── init_db.go //初始化数据库连接
+│   ├── query_record.go //数据库记录查找
+│   ├── read_excel.go //excel读取
+│   └── request_check.go //请求合法性检查
+├── main.go //路由和http服务定义
 └── model
-    ├── models.go
-    ├── options.go
+    ├── models.go //数据库模型
+    ├── options.go 
     ├── request.go
     └── response.go
 
 5 directories, 20 files
 ```
 
+> 项目结构的设计大概存在许多不合理的地方。欢迎指正。
