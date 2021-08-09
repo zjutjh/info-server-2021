@@ -53,5 +53,5 @@ func GetDorm(context *gin.Context) {
 		}
 	}
 	// OK
-	context.JSON(http.StatusOK, gin.H{"code": "200", "data": result})
+	context.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "data": result})
 }

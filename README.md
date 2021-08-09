@@ -116,7 +116,7 @@ ZJUT新生信息查询后端
    Content-Length: 222
    Connection: close
    
-   {"code":"200","data":{"name":"jxh01","campus":"朝晖","house":"#7","room":"101","bed":1,"friends":[{"name":"jxh02","class":"CS02","bed":2},{"name":"jxh03","class":"CS03","bed":3},{"name":"jxh04","class":"CS04","bed":4}]}}
+   {"code":200,"data":{"name":"jxh01","campus":"朝晖","house":"#7","room":"101","bed":1,"friends":[{"name":"jxh02","class":"CS02","bed":2},{"name":"jxh03","class":"CS03","bed":3},{"name":"jxh04","class":"CS04","bed":4}]}}
    ```
    
 3. 异常情况 （例）
