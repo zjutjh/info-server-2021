@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"github.com/spf13/viper"
 	"github.com/xuri/excelize/v2"
 	"github.com/zjutjh/info-backend/data"
 	"github.com/zjutjh/info-backend/model"
@@ -34,41 +35,57 @@ func ReadInfo(path string, passwd string, sheet string, update bool) {
 		fmt.Println(err)
 		return
 	}
-	// index of column
+
+	// find index of column
 	var index = make(map[string]int)
+	var keys map[string]string
+	if !viper.IsSet("excel") {
+		keys = make(map[string]string)
+		keys["name"] = "姓名"
+		keys["id"] = "证件号"
+		keys["campus"] = "校区"
+		keys["faculty"] = "学院"
+		keys["class"] = "班级"
+		keys["uid"] = "学号"
+		keys["house"] = "寝室楼"
+		keys["room"] = "寝室号"
+		keys["bed"] = "床号"
+	} else {
+		keys = viper.GetStringMapString("excel")
+	}
 	row := rows[0]
 	{
 		indexSum1 := 0
 		indexSum2 := 0
 		for j, col := range row {
-			if strings.Index(col, "姓名") != -1 {
+			if strings.Index(col, keys["name"]) != -1 {
 				index["name"] = j
 				indexSum1++
 				indexSum2++
-			} else if strings.Index(col, "证件号") != -1 {
+			} else if strings.Index(col, keys["id"]) != -1 {
 				index["id"] = j
 				indexSum1++
 				indexSum2++
-			} else if strings.Index(col, "校区") != -1 {
+			} else if strings.Index(col, keys["campus"]) != -1 {
 				index["campus"] = j
 				indexSum1++
-			} else if strings.Index(col, "学院") != -1 {
+			} else if strings.Index(col, keys["faculty"]) != -1 {
 				index["faculty"] = j
 				indexSum1++
-			} else if strings.Index(col, "班级") != -1 {
+			} else if strings.Index(col, keys["class"]) != -1 {
 				index["class"] = j
 				indexSum1++
-			} else if strings.Index(col, "学号") != -1 {
+			} else if strings.Index(col, keys["uid"]) != -1 {
 				index["uid"] = j
 				indexSum1++
 				indexSum2++
-			} else if strings.Index(col, "寝室楼") != -1 {
+			} else if strings.Index(col, keys["house"]) != -1 {
 				index["house"] = j
 				indexSum2++
-			} else if strings.Index(col, "寝室号") != -1 {
+			} else if strings.Index(col, keys["room"]) != -1 {
 				index["room"] = j
 				indexSum2++
-			} else if strings.Index(col, "床号") != -1 {
+			} else if strings.Index(col, keys["bed"]) != -1 {
 				index["bed"] = j
 				indexSum2++
 			}

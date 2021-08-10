@@ -2,7 +2,9 @@
 
 ZJUT新生信息查询后端
 
-[![Go](https://github.com/zjutjh/info-backend/actions/workflows/go.yml/badge.svg)](https://github.com/zjutjh/info-backend/actions/workflows/go.yml)[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/releases)[![GitHub](https://img.shields.io/github/license/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/blob/main/LICENSE)
+[![Go](https://github.com/zjutjh/info-backend/actions/workflows/go.yml/badge.svg)](https://github.com/zjutjh/info-backend/actions/workflows/go.yml)[![GitHub
+release (latest
+SemVer)](https://img.shields.io/github/v/release/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/releases)[![GitHub](https://img.shields.io/github/license/zjutjh/info-backend)](https://github.com/zjutjh/info-backend/blob/main/LICENSE)
 
 ## 如何编译
 
@@ -36,6 +38,12 @@ ZJUT新生信息查询后端
    # example config file
    # server config >>>
    server-port: ":8080"
+   proxy: true
+   trusted-proxies:
+     - "127.0.0.0/8"
+     - "192.168.0.0/16"
+     - "172.16.0.0/12"
+     - "10.0.0.0/8"
    # database config >>>
    db-username: "root"
    db-password: "passwd"
@@ -43,11 +51,23 @@ ZJUT新生信息查询后端
    # "db-hostname: 127.0.0.1" & "port: 3306" can be omitted
    # db-hostname: 127.0.0.1
    # db-port: 3306
+   # excel keys >>>
+   excel:
+     name: "姓名"
+     id: "证件号"
+     campus: "校区"
+     faculty: "学院"
+     class: "班级"
+     uid: "学号"
+     house: "寝室楼"
+     room: "寝室号"
+     bed: "床号"
    ```
 
 2. 从Excel载入数据到MySQL
 
-   > 注：Excel数据表格式很可能不通用。（导入已写的尽量智能，但是仍然不能保证适配每一年学校提供的数据，出了问题可能还是需要手动修改一下源码`read_excel.go`）
+   > 注：Excel数据表格式很可能不通用, 可以通过修改`config.yaml`中的`excel`配置来匹配表头(第一行)。
+   > 导入已写的尽量智能了一些，但是仍然不能保证适配每一年学校提供的数据，出了问题可能还是需要手动修改一下源码`read_excel.go`
 
    ```
    ./info-backend -l [excel文件路径]
@@ -118,7 +138,7 @@ ZJUT新生信息查询后端
    
    {"code":200,"data":{"name":"jxh01","campus":"朝晖","house":"#7","room":"101","bed":1,"friends":[{"name":"jxh02","class":"CS02","bed":2},{"name":"jxh03","class":"CS03","bed":3},{"name":"jxh04","class":"CS04","bed":4}]}}
    ```
-   
+
 3. 异常情况 （例）
 
    ```http
