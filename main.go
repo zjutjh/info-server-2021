@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	VERSION = "v1.1.3"
+	VERSION = "v1.2.0"
 )
 
 func main() {
@@ -63,7 +63,37 @@ func main() {
 	handler.InitDB()
 
 	// modify routers
-	router := gin.Default()
+	router := gin.New()
+	// set trusted reverse proxies
+	if viper.GetBool("proxy") {
+		trustedProxies := viper.GetStringSlice("trusted-proxies")
+		err := router.SetTrustedProxies(trustedProxies)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+	}
+
+	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+		// log format
+		return fmt.Sprintf("%s |%s %d %s| %s |%s %s %s %s | %s | size: %d | %s | %s\n",
+			param.TimeStamp.Format(time.RFC1123),
+			param.StatusCodeColor(),
+			param.StatusCode,
+			param.ResetColor(),
+			param.ClientIP,
+			param.MethodColor(),
+			param.Method,
+			param.ResetColor(),
+			param.Path,
+			param.Latency,
+			param.BodySize,
+			param.Request.UserAgent(),
+			param.ErrorMessage,
+		)
+	}))
+	router.Use(gin.Recovery())
+
 	v1 := router.Group("/api/v1")
 	{
 		v1.POST("/info", controller.GetInfo)
