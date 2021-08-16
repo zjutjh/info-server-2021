@@ -10,7 +10,7 @@ trusted-proxies:
 # database config >>>
 db-username: "root"
 db-password: "passwd"
-db-database: "info_test"
+db-database: "info2021"
 # "db-hostname: 127.0.0.1" & "port: 3306" can be omitted
 # db-hostname: 127.0.0.1
 # db-port: 3306
@@ -22,6 +22,6 @@ excel:
   faculty: "学院"
   class: "班级"
   uid: "学号"
-  house: "寝室楼"
-  room: "寝室号"
-  bed: "床号"
+  house: "楼号"
+  room: "寝室"
+  bed: "床"

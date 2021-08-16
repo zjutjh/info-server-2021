@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	VERSION = "v1.2.0"
+	VERSION = "v1.2.1"
 )
 
 func main() {
@@ -39,8 +39,8 @@ func main() {
 	} else {
 		viper.SetConfigName("config")
 		viper.SetConfigType("yaml")
-		viper.AddConfigPath("/etc/info")
 		viper.AddConfigPath(".")
+		viper.AddConfigPath("/etc/info")
 	}
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {

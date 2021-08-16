@@ -8,6 +8,6 @@ type Student struct {
 	Class   string `gorm:"comment:班级;size:50"`
 	Campus  string `gorm:"comment:校区;size:10"`
 	House   string `gorm:"comment:寝室楼;size:15"`
-	Room    string `gorm:"comment:寝室号;size:5"`
+	Room    string `gorm:"comment:寝室号;size:15"`
 	Bed     int8   `gorm:"comment:床号"`
 }
