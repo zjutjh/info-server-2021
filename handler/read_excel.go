@@ -134,16 +134,16 @@ func ReadInfo(path string, passwd string, sheet string, update bool) {
 			var where model.Student
 			if _, ok := index["id"]; ok {
 				where = model.Student{
-					Name: row[index["name"]],
+					//Name: row[index["name"]],
 					ID:   row[index["id"]],
 				}
 			} else {
 				where = model.Student{
-					Name: row[index["name"]],
+					//Name: row[index["name"]],
 					UID:  row[index["uid"]],
 				}
 			}
-			result := data.DB.Model(&where).Select("House", "Room", "Bed").Updates(&set)
+			result := data.DB.Model(&model.Student{}).Where(&where).Select("House", "Room", "Bed").Updates(&set)
 			if result.Error != nil {
 				fmt.Println(result.Error.Error())
 			}
