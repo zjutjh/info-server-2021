@@ -3,16 +3,13 @@ module github.com/zjutjh/info-backend
 go 1.16
 
 require (
-	github.com/gin-gonic/gin v1.7.2-0.20210803022626-6ebb945bd7ac
-	github.com/go-playground/validator/v10 v10.9.0 // indirect
-	github.com/goccy/go-json v0.7.4 // indirect
+	github.com/gin-gonic/gin v1.9.1
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/mattn/go-isatty v0.0.13 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/kr/pretty v0.3.0 // indirect
+	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/spf13/viper v1.8.1
 	github.com/xuri/excelize/v2 v2.4.1
-	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gorm.io/driver/mysql v1.1.1
 	gorm.io/gorm v1.21.12
 )
